@@ -1,3 +1,42 @@
-theme: jekyll-theme-minimal
-title: f-l-git's homepage
-description: Bookmark this to keep an eye on my project updates!
+# Основная информация о сайте
+title: "Название сайта"           # заголовок сайта
+description: "Краткое описание"   # мета-описание для SEO
+url: "https://example.com"        # полный URL сайта (без слеша в конце)
+baseurl: ""                       # подпапка, если сайт не в корне домена
+
+# Настройки генерации
+permalink: /:year/:month/:day/:title/   # формат URL для постов
+timezone: Europe/Moscow                 # временная зона (опционально)
+
+# Тема оформления
+theme: minima                         # стандартная тема Jekyll
+
+# Плагины (используются только при сборке)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Исключения при копировании файлов
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+
+# Включение скрытых файлов/папок
+include:
+  - .htaccess
+
+# Маркдаун-процессор
+markdown: kramdown
+highlighter: rouge                # подсветка синтаксиса
+
+# Социальные ссылки (для темы minima)
+twitter_username: jekyllrb
+github_username:  jekyll
+
+# Пользовательские переменные (можно свои)
+author: "Ваше имя"
+copyright: "© 2025"
