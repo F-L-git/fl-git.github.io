@@ -1,19 +1,90 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Мой сайт на GitHub Pages</title>
-  <!-- Подключаем простой CSS для красоты -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой сайт на GitHub Pages</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Привет, мир! 👋</h1>
-    <p>Это мой первый сайт, размещённый на GitHub Pages.</p>
-    <p>Я учусь создавать красивые и полезные проекты.</p>
-    <footer>© 2026, fl-git</footer>
-  </div>
-  <script src="script.js"></script>
+    <div class="container">
+        <!-- Шапка с приветствием и временем -->
+        <header>
+            <h1 id="greeting">Привет, мир!</h1>
+            <p id="time-display"></p>
+            <button id="theme-toggle" class="btn">🌙 Тёмная тема</button>
+        </header>
+
+        <!-- Основной контент -->
+        <section class="content">
+            <div class="section" id="about">
+                <h2>📖 О проекте</h2>
+                <p>Этот сайт создан для изучения возможностей бесплатного хостинга от GitHub. Здесь я буду публиковать свои эксперименты и учебные проекты.</p>
+            </div>
+
+            <div class="section" id="tech">
+                <h2>🛠️ Технологии</h2>
+                <ul>
+                    <li>HTML5</li>
+                    <li>CSS3</li>
+                    <li>GitHub Pages</li>
+                </ul>
+            </div>
+
+            <div class="section" id="setup">
+                <h2>⚙️ Настройка GitHub Pages</h2>
+                <ol>
+                    <li>Перейдите в свой репозиторий на GitHub.</li>
+                    <li>Нажмите <strong>Settings</strong> (вкладка в верхнем меню).</li>
+                    <li>В левом меню выберите <strong>Pages</strong>.</li>
+                    <li>В разделе <strong>Branch</strong> выберите ветку (обычно <code>main</code> или <code>master</code>). Оставьте папку <code>/(root)</code>.</li>
+                    <li>Нажмите <strong>Save</strong>.</li>
+                    <li>Через пару минут сайт станет доступен по ссылке, которая появится в этом же разделе.</li>
+                </ol>
+                <p><strong>Важно:</strong> Если репозиторий не <code>username.github.io</code>, сайт будет по адресу <code>username.github.io/имя-репозитория</code>.</p>
+            </div>
+
+            <div class="section" id="check">
+                <h2>✅ Проверка и публикация</h2>
+                <ul>
+                    <li>После сохранения настроек подождите 1–2 минуты.</li>
+                    <li>Откройте браузер и перейдите по вашему адресу.</li>
+                    <li>Если видите свою страницу — всё работает!</li>
+                </ul>
+            </div>
+
+            <div class="section" id="tips">
+                <h2>💡 Дополнительные советы по красивому оформлению</h2>
+                <ul>
+                    <li>Используйте готовые CSS-фреймворки (<a href="https://getbootstrap.com" target="_blank">Bootstrap</a> или <a href="https://tailwindcss.com" target="_blank">Tailwind CSS</a>).</li>
+                    <li>Добавьте иконки с помощью <a href="https://fontawesome.com" target="_blank">Font Awesome</a>.</li>
+                    <li>Сделайте адаптивный дизайн.</li>
+                    <li>В README используйте эмодзи, таблицы, списки и выделение кода.</li>
+                </ul>
+            </div>
+
+            <div class="section" id="trouble">
+                <h2>❓ Что делать, если сайт не открывается?</h2>
+                <ul>
+                    <li>Убедитесь, что репозиторий публичный.</li>
+                    <li>Проверьте ветку в настройках Pages.</li>
+                    <li>Посмотрите вкладку <strong>Actions</strong> — там могут быть ошибки сборки (для простого HTML сборка не требуется).</li>
+                </ul>
+            </div>
+
+            <div class="section" id="jekyll">
+                <h2>🎨 Альтернативный путь: использование темы Jekyll</h2>
+                <p>Если вы хотите ещё более стильный сайт без написания CSS, в настройках Pages выберите тему из галереи (кнопка <strong>Choose a theme</strong>). GitHub автоматически сгенерирует сайт на основе вашего README.md и добавит стили.</p>
+            </div>
+        </section>
+
+        <!-- Футер -->
+        <footer>
+            <p>© 2026, fl-git</p>
+            <p id="visit-counter">👀 Просмотров: <span id="count">0</span></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
