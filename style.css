@@ -50,23 +50,6 @@ footer {
   padding-top: 1rem;
 }
 
-/* Тёмная тема */
-body.dark-theme {
-    background-color: #1e1e2f;
-    color: #e0e0e0;
-}
-body.dark-theme .container {
-    background: #2d2d44;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-}
-body.dark-theme .btn {
-    background: #4a4a6a;
-    color: white;
-}
-body.dark-theme a {
-    color: #89b4fa;
-}
-
 /* Таймер */
 .countdown-container {
     background: rgba(102, 126, 234, 0.1);
@@ -79,3 +62,69 @@ body.dark-theme .countdown-container {
 body.dark-theme #countdown {
     color: #89b4fa;
 }
+
+/* ===== Тёмная тема ===== */
+body.dark-theme {
+    background-color: #12121a; /* очень тёмный фон */
+    color: #d4d4e0;
+}
+
+body.dark-theme .container {
+    background: #1e1e2e;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+    border: 1px solid #2a2a3a;
+}
+
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3 {
+    color: #f0f0ff;
+}
+
+body.dark-theme a {
+    color: #89b4fa;
+}
+body.dark-theme a:hover {
+    color: #b4d0ff;
+}
+
+body.dark-theme .section {
+    background: #25253a;
+    border-left: 4px solid #4a4a6a;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+body.dark-theme .section h2 {
+    color: #c8c8f0;
+}
+
+body.dark-theme ul,
+body.dark-theme ol {
+    color: #c8c8e0;
+}
+
+body.dark-theme li {
+    padding: 0.3rem 0;
+}
+
+body.dark-theme .countdown-container {
+    background: #2a2a42;
+    border: 1px solid #4a4a6a;
+    color: #e0e0f0;
+}
+
+body.dark-theme #countdown {
+    color: #89b4fa;
+}
+
+body.dark-theme footer {
+    border-top: 1px solid #3a3a52;
+    color: #a0a0b8;
+}
+
+body.dark-theme .btn {
+    /* наследуется, но можно дополнить */
+}
+
