@@ -84,12 +84,13 @@ header h1 {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     color: #fff;
     box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
-    border-radius: 50px; /* овальная */
+    border-radius: 10px;        /* ← мягкие края, но прямоугольная */
     padding: 0.8rem 2rem;
     font-size: 1.1rem;
     width: auto;
     height: auto;
     margin: 1rem 0 1.5rem 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .btn-magic:hover {
     transform: scale(1.05);
