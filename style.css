@@ -386,3 +386,26 @@ body.dark-theme .toast {
 @keyframes fadeOut {
     to { transform: translateX(120%); opacity: 0; }
 }
+
+/* ===== ВИДЖЕТ ПОГОДЫ ===== */
+.weather-widget {
+    background: rgba(255,255,255,0.8);
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: background 0.3s ease;
+}
+body.dark-theme .weather-widget {
+    background: rgba(30,30,46,0.8);
+    color: #d4d4e0;
+}
+@media (max-width: 640px) {
+    .weather-widget {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
+    }
+}
