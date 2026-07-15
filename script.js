@@ -58,6 +58,30 @@ const translations = {
         guessPlaceholder: 'Введите число',
         guessBtn: 'Проверить',
         guessResult: '',
+        weatherCodes: {
+            0: 'Ясно',
+            1: 'Преимущественно ясно',
+            2: 'Переменная облачность',
+            3: 'Пасмурно',
+            45: 'Туман',
+            48: 'Туман с изморозью',
+            51: 'Морось',
+            53: 'Морось',
+            55: 'Сильная морось',
+            61: 'Небольшой дождь',
+            63: 'Дождь',
+            65: 'Сильный дождь',
+            71: 'Небольшой снег',
+            73: 'Снег',
+            75: 'Сильный снег',
+            80: 'Ливень',
+            81: 'Сильный ливень',
+            82: 'Проливной дождь',
+            95: 'Гроза',
+            96: 'Гроза с градом',
+            99: 'Сильная гроза с градом'
+        },
+        toastMessages: ['🎉 Отлично!', '⭐ GitHub Pages — круто!', '🚀 JavaScript работает!', '💡 Обновите страницу!']
     },
     en: {
         greeting: ['Good night!', 'Good morning!', 'Good afternoon!', 'Good evening!'],
@@ -112,6 +136,30 @@ const translations = {
         guessPlaceholder: 'Enter number',
         guessBtn: 'Check',
         guessResult: '',
+        weatherCodes: {
+            0: 'Clear',
+            1: 'Mainly clear',
+            2: 'Partly cloudy',
+            3: 'Overcast',
+            45: 'Fog',
+            48: 'Fog with rime',
+            51: 'Drizzle',
+            53: 'Drizzle',
+            55: 'Heavy drizzle',
+            61: 'Slight rain',
+            63: 'Rain',
+            65: 'Heavy rain',
+            71: 'Slight snow',
+            73: 'Snow',
+            75: 'Heavy snow',
+            80: 'Rain shower',
+            81: 'Heavy rain shower',
+            82: 'Violent rain shower',
+            95: 'Thunderstorm',
+            96: 'Thunderstorm with hail',
+            99: 'Severe thunderstorm with hail'
+        },
+        toastMessages: ['🎉 Great!', '⭐ GitHub Pages is cool!', '🚀 JavaScript works!', '💡 Refresh the page!']
     }
 };
 
@@ -466,25 +514,35 @@ async function fetchWeather() {
 
         const temp = Math.round(data.current_weather.temperature);
         const weatherCode = data.current_weather.weathercode;
-        const weatherInfo = getWeatherInfo(weatherCode);
+        // Используем перевод из текущего языка
+        const t = translations[currentLang];
+        const description = t.weatherCodes[weatherCode] || 'Неизвестно';
 
-        const tempEl = document.getElementById('weather-temp');
-        const descEl = document.getElementById('weather-desc');
-        const iconEl = document.getElementById('weather-icon');
-
-        if (tempEl) tempEl.textContent = temp;
-        if (descEl) descEl.textContent = weatherInfo.description;
-        if (iconEl) iconEl.textContent = weatherInfo.emoji;
+        document.getElementById('weather-temp').textContent = temp;
+        document.getElementById('weather-desc').textContent = description;
+        document.getElementById('weather-icon').textContent = getWeatherEmoji(weatherCode);
     } catch (error) {
         console.error('Ошибка получения погоды:', error);
-        const descEl = document.getElementById('weather-desc');
-        const iconEl = document.getElementById('weather-icon');
-        if (descEl) descEl.textContent = 'недоступно';
-        if (iconEl) iconEl.textContent = '🌧️';
+        document.getElementById('weather-desc').textContent = translations[currentLang].weatherCodes[0] || 'недоступно';
+        document.getElementById('weather-icon').textContent = '🌧️';
     }
 }
 
-function getWeatherInfo(code) {
+// Отдельная функция для эмодзи (не зависит от языка)
+function getWeatherEmoji(code) {
+    const emojiMap = {
+        0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+        45: '🌫️', 48: '🌫️',
+        51: '🌦️', 53: '🌦️', 55: '🌦️',
+        61: '🌧️', 63: '🌧️', 65: '🌧️',
+        71: '🌨️', 73: '🌨️', 75: '🌨️',
+        80: '🌧️', 81: '🌧️', 82: '⛈️',
+        95: '⛈️', 96: '⛈️', 99: '⛈️'
+    };
+    return emojiMap[code] || '🌡️';
+}
+
+/* function getWeatherInfo(code) {
     const weatherMap = {
         0: { emoji: '☀️', description: 'Ясно' },
         1: { emoji: '🌤️', description: 'Преимущественно ясно' },
@@ -509,7 +567,7 @@ function getWeatherInfo(code) {
         99: { emoji: '⛈️', description: 'Сильная гроза с градом' },
     };
     return weatherMap[code] || { emoji: '🌡️', description: 'Неизвестно' };
-}
+} */
 
 // ========================
 // 9. ЧАСТИЦЫ ЗА КУРСОРОМ (Canvas)
@@ -634,13 +692,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const magicBtn = document.getElementById('magic-button');
     if (magicBtn) {
         magicBtn.addEventListener('click', function() {
-            const messages = [
-                '🎉 Отлично!',
-                '⭐ GitHub Pages — круто!',
-                '🚀 JavaScript работает!',
-                '💡 Обновите страницу!'
-            ];
-            showToast(messages[Math.floor(Math.random() * messages.length)]);
+            const messages = translations[currentLang].toastMessages;
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            showToast(randomMessage);
         });
     }
 
