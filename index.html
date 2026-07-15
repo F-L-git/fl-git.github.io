@@ -8,11 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Холст для частиц -->
+    <!-- Холст для частиц (собственная реализация) -->
     <canvas id="particles-canvas"></canvas>
 
     <div class="container">
-        <!-- Шапка с приветствием, временем и кнопкой темы -->
         <header>
             <div class="header-top">
                 <div class="header-left">
@@ -33,23 +32,26 @@
                 <div class="countdown-container">
                     <p>⏳ До следующего обновления сайта осталось:</p>
                     <div id="countdown">
-                        <span id="days">06</span>д <span id="hours">23</span>ч <span id="minutes">59</span>м <span id="seconds">20</span>с
+                        <span id="days">06</span>д
+                        <span id="hours">23</span>ч
+                        <span id="minutes">59</span>м
+                        <span id="seconds">20</span>с
+                    </div>
+                    <!-- Прогресс-бар для таймера -->
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar" style="width: 100%;"></div>
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- Основной контент – разделы из README -->
         <section class="content">
-
-            <!-- 1. О проекте -->
             <div class="section" id="about">
                 <h2>🛠️ О проекте</h2>
                 <p>Сайт создан для изучения возможностей бесплатного хостинга от <strong>GitHub</strong>.</p>
                 <p>Теперь сайт поддерживает <strong>интерактивность</strong> благодаря JavaScript 🌟</p>
             </div>
 
-            <!-- 2. Технологии -->
             <div class="section" id="tech">
                 <h2>🧠 Технологии</h2>
                 <ul>
@@ -60,7 +62,6 @@
                 </ul>
             </div>
 
-            <!-- 3. JavaScript-версия -->
             <div class="section" id="js-version">
                 <h2>🧩 JavaScript-версия</h2>
                 <p>В этой версии сайта добавлены скрипты, которые делают страницу живой:</p>
@@ -84,48 +85,42 @@ themeBtn?.addEventListener('click', () => {
 });</code></pre>
             </div>
 
-            <!-- 4. Настройка GitHub Pages -->
             <div class="section" id="setup">
                 <h2>🚀 Настройка GitHub Pages</h2>
                 <ol>
                     <li>Перейдите в свой репозиторий на <strong>GitHub</strong>.</li>
                     <li>Нажмите <strong>Settings</strong> (вкладка в верхнем меню).</li>
                     <li>В левом меню выберите <strong>Pages</strong>.</li>
-                    <li>В разделе <strong>Branch</strong> выберите ветку, из которой будет разворачиваться сайт. Обычно это <code>main</code> или <code>master</code>. Оставьте папку <code>/(root)</code>.</li>
+                    <li>В разделе <strong>Branch</strong> выберите ветку (обычно <code>main</code> или <code>master</code>). Оставьте папку <code>/(root)</code>.</li>
                     <li>Нажмите <strong>Save</strong>.</li>
-                    <li>Через пару минут сайт станет доступен по ссылке, которая появится в этом же разделе (например, <code>https://fl-git.github.io</code>)</li>
+                    <li>Через пару минут сайт станет доступен по ссылке.</li>
                 </ol>
-                <p><strong>Важно:</strong> Если вы используете репозиторий с именем, отличающимся от <code>username.github.io</code>, то в настройках Pages нужно выбрать ветку и папку, а сайт будет доступен по адресу <code>username.github.io/имя-репозитория</code>.</p>
+                <p><strong>Важно:</strong> Если репозиторий не <code>username.github.io</code>, сайт будет по адресу <code>username.github.io/имя-репозитория</code>.</p>
             </div>
 
-            <!-- 5. Дополнительные советы -->
             <div class="section" id="tips">
-                <h2>🧑‍💻 Дополнительные советы по красивому оформлению</h2>
+                <h2>🧑‍💻 Дополнительные советы</h2>
                 <ul>
-                    <li><strong>Используйте готовые CSS-фреймворки</strong> (например, <a href="https://getbootstrap.com" target="_blank">Bootstrap</a> или <a href="https://tailwindcss.com" target="_blank">Tailwind CSS</a>) для быстрой стилизации.</li>
-                    <li><strong>Добавьте иконки</strong> с помощью <a href="https://fontawesome.com" target="_blank">Font Awesome</a>.</li>
-                    <li><strong>Сделайте адаптивный дизайн</strong> — проверьте, как сайт выглядит на мобильных устройствах.</li>
+                    <li>Используйте <a href="https://getbootstrap.com" target="_blank">Bootstrap</a> или <a href="https://tailwindcss.com" target="_blank">Tailwind CSS</a>.</li>
+                    <li>Добавьте иконки с <a href="https://fontawesome.com" target="_blank">Font Awesome</a>.</li>
+                    <li>Сделайте адаптивный дизайн.</li>
                 </ul>
             </div>
 
-            <!-- 6. Что делать, если сайт не открывается -->
             <div class="section" id="trouble">
                 <h2>❓ Что делать, если сайт не открывается?</h2>
                 <ul>
-                    <li>Проверьте, что в настройках <strong>Pages</strong> выбрана правильная ветка.</li>
-                    <li>Посмотрите вкладку <strong>Actions</strong> — там могут быть ошибки сборки (если вы используете <strong>Jekyll</strong>). Для простого HTML сборка не требуется.</li>
+                    <li>Проверьте ветку в настройках <strong>Pages</strong>.</li>
+                    <li>Посмотрите вкладку <strong>Actions</strong> — там могут быть ошибки.</li>
                 </ul>
             </div>
 
-            <!-- 7. Альтернативный путь: Jekyll -->
             <div class="section" id="jekyll">
-                <h2>🎨 Альтернативный путь: использование темы Jekyll</h2>
-                <p>Если вы хотите ещё более стильный сайт без написания CSS, в настройках <strong>Pages</strong> выберите тему из галереи (кнопка <strong>Choose a theme</strong>). <strong>GitHub</strong> автоматически сгенерирует сайт на основе вашего <code>README.md</code> и добавит стили.</p>
+                <h2>🎨 Альтернатива: Jekyll</h2>
+                <p>Выберите тему в настройках <strong>Pages</strong> (кнопка <strong>Choose a theme</strong>). GitHub сгенерирует сайт на основе <code>README.md</code>.</p>
             </div>
-
         </section>
 
-        <!-- Футер -->
         <footer>
             <p>© 2026, fl-git</p>
             <p id="visit-counter">👀 Просмотров: <span id="count">0</span></p>
@@ -133,8 +128,6 @@ themeBtn?.addEventListener('click', () => {
         </footer>
     </div>
 
-    <script src="script.js?v=2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
-    <button id="scroll-top" class="btn" title="Наверх" aria-label="Наверх">⬆</button>
+    <script src="script.js?v=3"></script>
 </body>
 </html>
