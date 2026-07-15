@@ -81,6 +81,7 @@ header h1 {
 }
 
 /* Кнопка "Нажми меня!" – прямоугольная с мягкими краями */
+/* Кнопка "Нажми меня!" – светлая тема */
 .btn-magic {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
@@ -92,17 +93,25 @@ header h1 {
     height: auto;
     margin: 1rem 0 1.5rem 0;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: pulse 2s infinite; /* оставляем пульсацию */
 }
 .btn-magic:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
 }
 
+/* Кнопка "Нажми меня!" – тёмная тема */
 body.dark-theme .btn-magic {
     background: linear-gradient(135deg, #4a4a6a 0%, #2d2d44 100%);
     color: #f0f0f0;
 }
 
+/* Пульсация – обновлённый цвет */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(102, 126, 234, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+}
 /* ===== ТАЙМЕР ===== */
 .countdown-container {
     background: #f0f4ff;
