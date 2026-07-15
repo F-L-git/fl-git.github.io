@@ -13,12 +13,28 @@
     <div class="container">
         <!-- Шапка с приветствием, временем и кнопкой темы -->
         <header>
-            <h1 id="greeting">Доброй ночи! 👋</h1>
-            <p id="time-display">🕐 00:00:00</p>
-            <button id="theme-toggle" class="btn" title="Переключить тему"></button>
-            <!-- Виджет погоды -->
-            <div class="weather-widget" id="weather-widget">
-                <p><span id="weather-icon">🌤️</span> <span id="weather-temp">--</span>°C, <span id="weather-desc">загрузка...</span></p>
+            <div class="header-top">
+                <div class="header-left">
+                    <h1 id="greeting">Доброй ночи! 👋</h1>
+                    <p id="time-display">🕐 04:33:07</p>
+                </div>
+                <div class="header-right">
+                    <div class="weather-widget" id="weather-widget">
+                        <span id="weather-icon">⛅</span>
+                        <span id="weather-temp">18</span>°C
+                        <span id="weather-desc">Переменная облачность</span>
+                    </div>
+                    <button id="theme-toggle" class="btn" title="Переключить тему"></button>
+                </div>
+            </div>
+            <div class="header-bottom">
+                <button id="magic-button" class="btn btn-magic">✨ Нажми меня!</button>
+                <div class="countdown-container">
+                    <p>⏳ До следующего обновления сайта осталось:</p>
+                    <div id="countdown">
+                        <span id="days">06</span>д <span id="hours">23</span>ч <span id="minutes">59</span>м <span id="seconds">20</span>с
+                    </div>
+                </div>
             </div>
         </header>
 
