@@ -214,44 +214,36 @@ startCountdown(nextUpdate.getTime());
 // ========================
 // 10. ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ (TOAST)
 // ========================
-function showToast(message) {
-    const container = document.getElementById('toast-container') || (() => {
-        const div = document.createElement('div');
-        div.id = 'toast-container';
-        div.className = 'toast-container';
-        document.body.appendChild(div);
-        return div;
-    })();
+// ... остальной код ...
 
+// Всплывающие уведомления
+function showToast(message) {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
     container.appendChild(toast);
-
-    // Удаляем toast после анимации (через 3.5 секунды)
-    setTimeout(() => {
-        if (toast.parentNode) {
-            toast.remove();
-        }
-    }, 3500);
+    setTimeout(() => { if (toast.parentNode) toast.remove(); }, 3500);
 }
 
-// ========================
-// 11. КНОПКА "НАЖМИ МЕНЯ!" (добавляется динамически)
-// ========================
-// Если кнопка статична в HTML
+// Обработчик для кнопки (после загрузки DOM)
 document.addEventListener('DOMContentLoaded', function() {
     const magicBtn = document.getElementById('magic-button');
     if (magicBtn) {
         magicBtn.addEventListener('click', function() {
             const messages = [
-                '🎉 Отлично! Вы нажали на кнопку!',
-                '⭐ GitHub Pages — это круто!',
-                '🚀 Ваш сайт работает с JavaScript!',
-                '💡 Попробуйте обновить страницу!'
+                '🎉 Отлично!',
+                '⭐ GitHub Pages — круто!',
+                '🚀 JavaScript работает!',
+                '💡 Обновите страницу!'
             ];
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            showToast(randomMessage);
+            showToast(messages[Math.floor(Math.random() * messages.length)]);
         });
     }
 });
