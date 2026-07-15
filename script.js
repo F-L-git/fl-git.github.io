@@ -431,3 +431,16 @@ document.addEventListener('DOMContentLoaded', fetchWeather);
         window.removeEventListener('mouseleave', onMouseLeave);
     });
 })();
+
+// Кнопка "Наверх"
+const scrollBtn = document.getElementById('scroll-top');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        scrollBtn.classList.add('show');
+    } else {
+        scrollBtn.classList.remove('show');
+    }
+});
+scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
