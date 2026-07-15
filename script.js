@@ -265,28 +265,63 @@ document.addEventListener('DOMContentLoaded', function() {
 // ========================
 // 12. ВИДЖЕТ ПОГОДЫ (OpenWeatherMap)
 // ========================
+// ========================
+// ВИДЖЕТ ПОГОДЫ (Open-Meteo — бесплатно, без ключа)
+// ========================
 async function fetchWeather() {
-    const apiKey = 'd87c039362eeff4603d753d04b741bca'; // Замените на свой ключ
-    const city = 'Saint-Petersburg'; // Название города (можно изменить)
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ru`;
+    // Координаты Москвы (можно заменить на свой город)
+    const lat = 55.7558;
+    const lon = 37.6173;
+    // URL Open-Meteo API (текущая погода)
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto`;
 
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error('Ошибка загрузки погоды');
         const data = await response.json();
 
-        const temp = Math.round(data.main.temp);
-        const description = data.weather[0].description;
-        const iconCode = data.weather[0].icon;
-        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        const temp = Math.round(data.current_weather.temperature);
+        const weatherCode = data.current_weather.weathercode;
+
+        // Преобразуем код погоды в текст и иконку
+        const weatherInfo = getWeatherInfo(weatherCode);
 
         document.getElementById('weather-temp').textContent = temp;
-        document.getElementById('weather-desc').textContent = description;
-        document.getElementById('weather-icon').innerHTML = `<img src="${iconUrl}" alt="иконка погоды" style="width: 40px; height: 40px; vertical-align: middle;">`;
+        document.getElementById('weather-desc').textContent = weatherInfo.description;
+        document.getElementById('weather-icon').textContent = weatherInfo.emoji;
     } catch (error) {
         console.error('Ошибка получения погоды:', error);
         document.getElementById('weather-desc').textContent = 'недоступно';
+        document.getElementById('weather-icon').textContent = '🌧️';
     }
+}
+
+// Функция преобразования кода погоды Open-Meteo в текст и эмодзи
+function getWeatherInfo(code) {
+    const weatherMap = {
+        0: { emoji: '☀️', description: 'Ясно' },
+        1: { emoji: '🌤️', description: 'Преимущественно ясно' },
+        2: { emoji: '⛅', description: 'Переменная облачность' },
+        3: { emoji: '☁️', description: 'Пасмурно' },
+        45: { emoji: '🌫️', description: 'Туман' },
+        48: { emoji: '🌫️', description: 'Туман с изморозью' },
+        51: { emoji: '🌦️', description: 'Морось' },
+        53: { emoji: '🌦️', description: 'Морось' },
+        55: { emoji: '🌦️', description: 'Сильная морось' },
+        61: { emoji: '🌧️', description: 'Небольшой дождь' },
+        63: { emoji: '🌧️', description: 'Дождь' },
+        65: { emoji: '🌧️', description: 'Сильный дождь' },
+        71: { emoji: '🌨️', description: 'Небольшой снег' },
+        73: { emoji: '🌨️', description: 'Снег' },
+        75: { emoji: '🌨️', description: 'Сильный снег' },
+        80: { emoji: '🌧️', description: 'Ливень' },
+        81: { emoji: '🌧️', description: 'Сильный ливень' },
+        82: { emoji: '⛈️', description: 'Проливной дождь' },
+        95: { emoji: '⛈️', description: 'Гроза' },
+        96: { emoji: '⛈️', description: 'Гроза с градом' },
+        99: { emoji: '⛈️', description: 'Сильная гроза с градом' },
+    };
+    return weatherMap[code] || { emoji: '🌡️', description: 'Неизвестно' };
 }
 
 // Вызовите функцию при загрузке
