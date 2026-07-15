@@ -344,7 +344,7 @@ tsParticles.load("tsparticles", {
 });
 
 // ========================
-// ЧАСТИЦЫ ЗА КУРСОРОМ (Canvas)
+// 13. ЧАСТИЦЫ ЗА КУРСОРОМ (Canvas)
 // ========================
 (function initParticles() {
     const canvas = document.getElementById('particles-canvas');
