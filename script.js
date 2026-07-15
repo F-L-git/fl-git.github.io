@@ -342,3 +342,125 @@ tsParticles.load("tsparticles", {
         events: { onHover: { enable: true, mode: "repulse" } }
     }
 });
+
+// ========================
+// ЧАСТИЦЫ ЗА КУРСОРОМ (Canvas)
+// ========================
+(function initParticles() {
+    const canvas = document.getElementById('particles-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let mouse = { x: null, y: null };
+    const particles = [];
+    const PARTICLE_COUNT = 150;
+    const MAX_SPEED = 3;
+    const ATTRACTION = 0.05;
+
+    // ---- Настройка размеров canvas ----
+    function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // ---- Класс частицы ----
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.size = Math.random() * 4 + 2; // размер от 2 до 6
+            this.speedX = (Math.random() - 0.5) * 2;
+            this.speedY = (Math.random() - 0.5) * 2;
+            // Цвет: оттенок сине-фиолетового
+            this.hue = Math.random() * 40 + 220; // 220–260 (сине-фиолетовый)
+            this.saturation = 80;
+            this.lightness = 70;
+            this.opacity = Math.random() * 0.5 + 0.3;
+        }
+
+        update() {
+            // Если курсор на экране – притягиваемся к нему
+            if (mouse.x !== null && mouse.y !== null) {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance > 1) {
+                    const force = ATTRACTION * (1 / (distance * 0.1 + 1));
+                    this.speedX += dx * force * 0.02;
+                    this.speedY += dy * force * 0.02;
+                }
+            }
+
+            // Ограничиваем скорость
+            const speed = Math.sqrt(this.speedX * this.speedX + this.speedY * this.speedY);
+            if (speed > MAX_SPEED) {
+                this.speedX = (this.speedX / speed) * MAX_SPEED;
+                this.speedY = (this.speedY / speed) * MAX_SPEED;
+            }
+
+            // Двигаем
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            // Затухание скорости (трение)
+            this.speedX *= 0.98;
+            this.speedY *= 0.98;
+
+            // Если частица вышла за границы – возвращаем с другой стороны
+            if (this.x < 0) this.x = width;
+            if (this.x > width) this.x = 0;
+            if (this.y < 0) this.y = height;
+            if (this.y > height) this.y = 0;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${this.hue}, ${this.saturation}%, ${this.lightness}%, ${this.opacity})`;
+            ctx.fill();
+        }
+    }
+
+    // ---- Создаём частицы ----
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(new Particle());
+    }
+
+    // ---- Отслеживание мыши ----
+    function onMouseMove(event) {
+        mouse.x = event.clientX;
+        mouse.y = event.clientY;
+    }
+    function onMouseLeave() {
+        mouse.x = null;
+        mouse.y = null;
+    }
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseleave', onMouseLeave);
+
+    // ---- Анимационный цикл ----
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    // ---- Очистка при перезагрузке (опционально) ----
+    window.addEventListener('beforeunload', () => {
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseleave', onMouseLeave);
+    });
+})();
