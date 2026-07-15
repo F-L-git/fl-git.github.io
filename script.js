@@ -81,7 +81,9 @@ const translations = {
             96: 'Гроза с градом',
             99: 'Сильная гроза с градом'
         },
-        toastMessages: ['🎉 Отлично!', '⭐ GitHub Pages — круто!', '🚀 JavaScript работает!', '💡 Обновите страницу!']
+        toastMessages: ['🎉 Отлично!', '⭐ GitHub Pages — круто!', '🚀 JavaScript работает!', '💡 Обновите страницу!'],
+        mapTitle: '📍 Наше местоположение',
+        mapPopup: '📍 Москва'
     },
     en: {
         greeting: ['Good night!', 'Good morning!', 'Good afternoon!', 'Good evening!'],
@@ -159,7 +161,9 @@ const translations = {
             96: 'Thunderstorm with hail',
             99: 'Severe thunderstorm with hail'
         },
-        toastMessages: ['🎉 Great!', '⭐ GitHub Pages is cool!', '🚀 JavaScript works!', '💡 Refresh the page!']
+        toastMessages: ['🎉 Great!', '⭐ GitHub Pages is cool!', '🚀 JavaScript works!', '💡 Refresh the page!'],
+        mapTitle: '📍 Our Location',
+        mapPopup: '📍 Moscow'
     }
 };
 
@@ -186,6 +190,141 @@ function setLanguage(lang) {
     }
     // Показать уведомление
     showToast(lang === 'ru' ? '🌍 Язык переключён на русский' : '🌍 Language switched to English');
+}
+
+// ========================
+// КАРТА (Leaflet)
+// ========================
+let map = null;
+let mapMarker = null;
+
+function initMap() {
+    const container = document.getElementById('map');
+    if (!container) {
+        console.warn('Контейнер #map не найден');
+        return;
+    }
+    // Проверяем, что L загружен
+    if (typeof L === 'undefined') {
+        console.warn('Leaflet не загружен, повторная попытка через 500ms');
+        setTimeout(initMap, 500);
+        return;
+    }
+
+    // Если карта уже создана, не создаём заново
+    if (map) {
+        map.invalidateSize();
+        return;
+    }
+
+    map = L.map('map').setView([55.7558, 37.6173], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    mapMarker = L.marker([55.7558, 37.6173]).addTo(map);
+    const popupText = translations[currentLang]?.mapPopup || '📍 Москва';
+    mapMarker.bindPopup(popupText);
+    mapMarker.openPopup();
+
+    // Принудительно обновляем размер после рендеринга
+    setTimeout(() => {
+        if (map) map.invalidateSize();
+    }, 300);
+
+    // Обновляем при изменении размера окна
+    window.addEventListener('resize', () => {
+        if (map) map.invalidateSize();
+    });
+}
+
+function updateMapPopup(lang) {
+    if (mapMarker) {
+        const popupText = translations[lang]?.mapPopup || '📍 Москва';
+        mapMarker.setPopupContent(popupText);
+    }
+}
+
+// ========================
+// ОПРЕДЕЛЕНИЕ МЕСТОПОЛОЖЕНИЯ (Geolocation API)
+// ========================
+function locateUser() {
+    if (!navigator.geolocation) {
+        showToast('❌ Ваш браузер не поддерживает геолокацию');
+        return;
+    }
+
+    // Показываем уведомление о запросе
+    showToast('📍 Запрашиваем ваше местоположение...');
+
+    navigator.geolocation.getCurrentPosition(
+        // Успех
+        (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const accuracy = position.coords.accuracy; // точность в метрах
+
+            // Показываем на карте
+            showLocationOnMap(lat, lon, `📍 Вы здесь (точность ~${Math.round(accuracy)} м)`);
+            showToast(`✅ Местоположение определено (${lat.toFixed(4)}, ${lon.toFixed(4)})`);
+        },
+        // Ошибка
+        (error) => {
+            console.error('Ошибка геолокации:', error);
+            let message = '❌ Не удалось определить местоположение. ';
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    message += 'Вы запретили доступ к геолокации.';
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    message += 'Информация о местоположении недоступна.';
+                    break;
+                case error.TIMEOUT:
+                    message += 'Время ожидания истекло.';
+                    break;
+                default:
+                    message += 'Неизвестная ошибка.';
+            }
+            showToast(message);
+            // В случае ошибки показываем город по умолчанию (Москва)
+            showLocationOnMap(55.7558, 37.6173, '📍 Москва (по умолчанию)');
+        },
+        {
+            enableHighAccuracy: true,  // использовать GPS если доступен
+            timeout: 10000,            // таймаут 10 секунд
+            maximumAge: 60000          // кэшировать позицию 1 минуту
+        }
+    );
+}
+
+// ========================
+// ОБНОВЛЕНИЕ КАРТЫ С НОВЫМИ КООРДИНАТАМИ
+// ========================
+function showLocationOnMap(lat, lon, popupText) {
+    // Если карта ещё не создана, инициализируем её с этими координатами
+    if (!map) {
+        // Создаём карту с переданными координатами
+        map = L.map('map').setView([lat, lon], 14); // зум ближе (14)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+    } else {
+        // Если карта уже есть, перемещаем вид на новые координаты
+        map.setView([lat, lon], 14);
+        // Если есть старый маркер, удаляем его
+        if (mapMarker) {
+            map.removeLayer(mapMarker);
+        }
+    }
+
+    // Добавляем маркер с текстом
+    mapMarker = L.marker([lat, lon]).addTo(map);
+    mapMarker.bindPopup(popupText).openPopup();
+
+    // Обновляем размер карты
+    setTimeout(() => {
+        if (map) map.invalidateSize();
+    }, 300);
 }
 
 function updateUI(lang) {
@@ -233,15 +372,17 @@ function updateUI(lang) {
     if (jekyllP) jekyllP.innerHTML = t.jekyllText;
 
     // 3. Футер
-    const footer = document.querySelector('footer');
-    const footerP = footer.querySelectorAll('p');
-    if (footerP.length >= 2) {
-        footerP[0].innerHTML = t.footerCopyright;
-        footerP[1].innerHTML = `${t.footerVisits} <span id="count">0</span>`;
-        // Ссылка на репозиторий – добавим, если есть
-        const repoLink = footer.querySelector('a');
-        if (repoLink) repoLink.innerHTML = t.footerRepo;
-    }
+    const footerCopyright = document.getElementById('footer-copyright');
+    if (footerCopyright) footerCopyright.textContent = t.footerCopyright;
+
+    const footerVisitsText = document.getElementById('footer-visits-text');
+    if (footerVisitsText) footerVisitsText.textContent = t.footerVisits;
+
+    const repoLink = document.getElementById('footer-repo-link');
+    if (repoLink) repoLink.innerHTML = t.footerRepo;
+
+    // После обновления футера
+    updateVisitCounter();
 
     // 4. Таймер (заголовок и единицы)
     const countdownTitle = document.querySelector('.countdown-container p');
@@ -258,19 +399,13 @@ function updateUI(lang) {
     // Пока просто перезапросим погоду с новым языком
     fetchWeather(); // она перезапишет описание
 
-    // 7. Карта – обновим popup
+    // Карта
+    const mapTitle = document.querySelector('#map-section h2');
+    if (mapTitle) mapTitle.textContent = t.mapTitle;
     updateMapPopup(lang);
 
     // 8. Обновляем приветствие (вызовем updateGreeting, который теперь будет использовать язык)
     updateGreeting();
-}
-
-// Функция обновления popup карты (будет реализована позже)
-let mapMarker = null;
-function updateMapPopup(lang) {
-    if (mapMarker) {
-        mapMarker.setPopupContent(translations[lang].mapPopup);
-    }
 }
 
 // ========================
@@ -687,7 +822,8 @@ document.addEventListener('visibilitychange', () => {
 // ========================
 // 11. ОБРАБОТЧИКИ ПОСЛЕ ЗАГРУЗКИ DOM
 // ========================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    
     // Кнопка "Нажми меня!"
     const magicBtn = document.getElementById('magic-button');
     if (magicBtn) {
@@ -700,7 +836,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Погода
     fetchWeather();
+    // Инициализация карты
+    initMap();
+    // Определяем местоположение пользователя
+    locateUser();
 });
 
 // Установить язык при загрузке
 setLanguage(currentLang);
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('reading-progress').style.width = progress + '%';
+});

@@ -465,10 +465,3 @@ body.dark-theme .toast {
     width: 0%;
     transition: width 0.1s;
 }
-
-window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = (scrollTop / docHeight) * 100;
-    document.getElementById('reading-progress').style.width = progress + '%';
-});

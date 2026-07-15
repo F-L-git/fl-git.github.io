@@ -6,6 +6,7 @@
     <title>Мой сайт на GitHub Pages</title>
     <link rel="stylesheet" href="style.css?v=3">
     <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -52,6 +53,11 @@
                 <h2>🛠️ О проекте</h2>
                 <p>Сайт создан для изучения возможностей бесплатного хостинга от <strong>GitHub</strong>.</p>
                 <p>Теперь сайт поддерживает <strong>интерактивность</strong> благодаря JavaScript 🌟</p>
+            </div>
+            <!-- Карта -->
+            <div class="section" id="map-section">
+                <h2 id="map-title">📍 Наше местоположение</h2>
+                <div id="map" style="height: 300px; border-radius: 12px;"></div>
             </div>
 
             <div class="section" id="tech">
@@ -124,13 +130,14 @@ themeBtn?.addEventListener('click', () => {
         </section>
 
         <footer>
-            <p>© 2026, fl-git</p>
-            <p id="visit-counter">👀 Просмотров: <span id="count">0</span></p>
-            <p><a href="https://github.com/F-L-git/GitHub-Pages" target="_blank">📂 Репозиторий</a></p>
+            <p id="footer-copyright">© 2026, fl-git</p>
+            <p><span id="footer-visits-text">👀 Просмотров:</span> <span id="count">0</span></p>
+            <p><a href="https://github.com/F-L-git/GitHub-Pages" target="_blank" id="footer-repo-link">📂 Репозиторий</a></p>
         </footer>
     </div>
 
     <script src="script.js?v=3"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </body>
 <div id="reading-progress"></div>
 </html>
