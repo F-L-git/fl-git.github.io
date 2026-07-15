@@ -10,17 +10,19 @@
     <div class="container">
         <!-- Шапка с приветствием и временем -->
         <header>
-            <h1 id="greeting">Привет, мир!</h1>
-            <p id="time-display"></p>
+            <h1 id="greeting">Доброй ночи! 👋</h1>
+            <p id="time-display">🕐 00:00:00</p>
             <button id="theme-toggle" class="btn">🌙 Тёмная тема</button>
         </header>
+
         <!-- Таймер обратного отсчёта -->
-        <div class="countdown-container" style="margin: 1.5rem 0; padding: 1rem; background: #f0f4ff; border-radius: 12px; text-align: center;">
+        <div class="countdown-container">
             <p style="font-weight: bold; margin: 0;">⏳ До следующего обновления сайта осталось:</p>
-            <div id="countdown" style="font-size: 2rem; font-weight: bold; color: #667eea; letter-spacing: 2px;">
+            <div id="countdown">
                 <span id="days">00</span>д <span id="hours">00</span>ч <span id="minutes">00</span>м <span id="seconds">00</span>с
             </div>
         </div>
+
         <!-- Основной контент -->
         <section class="content">
             <div class="section" id="about">
