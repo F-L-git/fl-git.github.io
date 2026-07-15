@@ -266,8 +266,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // 12. ВИДЖЕТ ПОГОДЫ (OpenWeatherMap)
 // ========================
 async function fetchWeather() {
-    const apiKey = 'ВАШ_API_КЛЮЧ'; // Замените на свой ключ
-    const city = 'Moscow'; // Название города (можно изменить)
+    const apiKey = 'd87c039362eeff4603d753d04b741bca'; // Замените на свой ключ
+    const city = 'Saint-Petersburg'; // Название города (можно изменить)
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ru`;
 
     try {
