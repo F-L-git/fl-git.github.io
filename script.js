@@ -239,15 +239,11 @@ function showToast(message) {
 // ========================
 // 11. КНОПКА "НАЖМИ МЕНЯ!" (добавляется динамически)
 // ========================
+// Если кнопка статична в HTML
 document.addEventListener('DOMContentLoaded', function() {
-    const heading = document.querySelector('h1');
-    if (heading && !document.getElementById('magic-button')) {
-        const button = document.createElement('button');
-        button.id = 'magic-button';
-        button.className = 'btn btn-magic';
-        button.textContent = '✨ Нажми меня!';
-        
-        button.addEventListener('click', function() {
+    const magicBtn = document.getElementById('magic-button');
+    if (magicBtn) {
+        magicBtn.addEventListener('click', function() {
             const messages = [
                 '🎉 Отлично! Вы нажали на кнопку!',
                 '⭐ GitHub Pages — это круто!',
@@ -255,10 +251,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 '💡 Попробуйте обновить страницу!'
             ];
             const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            showToast(randomMessage);   // вместо alert
+            showToast(randomMessage);
         });
-        
-        heading.parentNode.insertBefore(button, heading.nextSibling);
     }
 });
 
