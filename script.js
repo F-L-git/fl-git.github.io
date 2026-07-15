@@ -851,3 +851,163 @@ window.addEventListener('scroll', () => {
     const progress = (scrollTop / docHeight) * 100;
     document.getElementById('reading-progress').style.width = progress + '%';
 });
+
+// ========================
+// ФУНКЦИЯ ДЛЯ ОБНОВЛЕНИЯ КАРТЫ
+// ========================
+function showLocationOnMap(lat, lon, popupText) {
+    const mapContainer = document.getElementById('map');
+    if (!mapContainer) {
+        console.warn('Контейнер #map не найден');
+        return;
+    }
+
+    // Проверяем, загружен ли Leaflet
+    if (typeof L === 'undefined') {
+        setTimeout(() => showLocationOnMap(lat, lon, popupText), 500);
+        return;
+    }
+
+    if (!map) {
+        map = L.map('map').setView([lat, lon], 14);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+    } else {
+        map.setView([lat, lon], 14);
+        if (mapMarker) map.removeLayer(mapMarker);
+    }
+
+    mapMarker = L.marker([lat, lon]).addTo(map);
+    mapMarker.bindPopup(popupText).openPopup();
+
+    setTimeout(() => {
+        if (map) map.invalidateSize();
+    }, 300);
+}
+
+// ========================
+// СНЕГ (Canvas)
+// ========================
+(function initSnow() {
+    const canvas = document.getElementById('snow-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    const flakes = [];
+    const FLAKE_COUNT = 200;
+
+    // Настройки снежинок
+    class Snowflake {
+        constructor() {
+            this.reset();
+        }
+        reset() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height - height; // начинаем за верхней границей
+            this.size = Math.random() * 6 + 2; // размер от 2 до 8
+            this.speed = Math.random() * 1.5 + 0.5; // скорость падения
+            this.wind = (Math.random() - 0.5) * 0.3; // боковое отклонение
+            this.opacity = Math.random() * 0.5 + 0.4;
+        }
+        update() {
+            this.y += this.speed;
+            this.x += this.wind + Math.sin(this.y * 0.01) * 0.2; // лёгкое покачивание
+            // Если снежинка ушла за нижнюю границу – сбрасываем наверх
+            if (this.y > height + 20) {
+                this.reset();
+                this.y = -10;
+            }
+            if (this.x < -10) this.x = width + 10;
+            if (this.x > width + 10) this.x = -10;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+            ctx.fill();
+            // Лёгкое свечение
+            ctx.shadowColor = 'rgba(255, 255, 255, 0.3)';
+            ctx.shadowBlur = 10;
+            ctx.fill();
+            ctx.shadowBlur = 0; // сбрасываем для производительности
+        }
+    }
+
+    function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        // Пересоздаём снежинки при изменении размера, чтобы они равномерно распределились
+        flakes.length = 0;
+        for (let i = 0; i < FLAKE_COUNT; i++) {
+            const flake = new Snowflake();
+            flake.y = Math.random() * height; // распределяем по всей высоте
+            flakes.push(flake);
+        }
+    });
+    resizeCanvas();
+
+    // Создаём снежинки
+    for (let i = 0; i < FLAKE_COUNT; i++) {
+        flakes.push(new Snowflake());
+    }
+
+    // Анимация
+    function animateSnow() {
+        ctx.clearRect(0, 0, width, height);
+        flakes.forEach(flake => {
+            flake.update();
+            flake.draw();
+        });
+        requestAnimationFrame(animateSnow);
+    }
+    animateSnow();
+})();
+
+// ========================
+// КАСТОМНЫЙ КУРСОР + СЛЕД
+// ========================
+(function initCustomCursor() {
+    const dot = document.getElementById('cursor-dot');
+    const trail = document.getElementById('cursor-trail');
+
+    if (!dot || !trail) {
+        console.warn('Кастомный курсор: элементы не найдены');
+        return;
+    }
+
+    let mouseX = 0, mouseY = 0;
+    let trailX = 0, trailY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = mouseX + 'px';
+        dot.style.top = mouseY + 'px';
+    });
+
+    function animateTrail() {
+        trailX += (mouseX - trailX) * 0.15;
+        trailY += (mouseY - trailY) * 0.15;
+        trail.style.left = trailX + 'px';
+        trail.style.top = trailY + 'px';
+        requestAnimationFrame(animateTrail);
+    }
+    animateTrail();
+
+    // Добавляем класс .hover при наведении на интерактивные элементы
+    const interactive = document.querySelectorAll('a, button, .btn, .section h2, input, .section');
+    interactive.forEach(el => {
+        el.addEventListener('mouseenter', () => dot.classList.add('hover'));
+        el.addEventListener('mouseleave', () => dot.classList.remove('hover'));
+    });
+
+    // (Опционально) скрыть стандартный курсор:
+    document.body.style.cursor = 'none';
+})();
