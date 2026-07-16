@@ -79,9 +79,6 @@
         </div>
 
         <div class="header-bottom">
-          <button id="magic-button" class="btn btn-magic">
-            ✨ Нажми меня!
-          </button>
           <div class="countdown-container">
             <p>⏳ До следующего обновления сайта осталось:</p>
             <div id="countdown">
@@ -96,6 +93,11 @@
                 style="width: 100%"
               ></div>
             </div>
+          </div>
+          <div class="magic-wrapper">
+            <button id="magic-button" class="btn btn-magic">
+              ✨ Нажми меня!
+            </button>
           </div>
         </div>
       </header>
@@ -112,6 +114,7 @@
             JavaScript 🌟
           </p>
         </div>
+
         <!-- Карта -->
         <div class="section" id="map-section">
           <h2 id="map-title">📍 Наше местоположение</h2>
@@ -120,11 +123,19 @@
 
         <div class="section" id="tech">
           <h2>🧠 Технологии</h2>
-          <ul>
-            <li><code>HTML5</code></li>
-            <li><code>CSS3</code></li>
-            <li><code>JavaScript (ES6+)</code></li>
-            <li><strong>GitHub Pages</strong></li>
+          <ul class="tech-list">
+            <li class="tech-badge html">
+              <i class="fab fa-html5 tech-icon"></i> HTML5
+            </li>
+            <li class="tech-badge css">
+              <i class="fab fa-css3-alt tech-icon"></i> CSS3
+            </li>
+            <li class="tech-badge js">
+              <i class="fab fa-js tech-icon"></i> JavaScript (ES6+)
+            </li>
+            <li class="tech-badge github">
+              <i class="fab fa-github tech-icon"></i> GitHub Pages
+            </li>
           </ul>
         </div>
 

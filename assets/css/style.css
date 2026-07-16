@@ -850,3 +850,165 @@ header {
 #theme-toggle {
   order: 2;
 }
+
+.header-bottom {
+  display: flex;
+  flex-direction: column; /* таймер сверху, кнопка снизу */
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.magic-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-magic {
+  padding: 1rem 3rem;
+  font-size: 1.4rem;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  letter-spacing: 1px;
+  font-weight: 600;
+  width: auto;
+  min-width: 220px;
+}
+
+.btn-magic:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.7);
+}
+
+.btn-magic:active {
+  transform: scale(0.96);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(102, 126, 234, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+  }
+}
+.btn-magic {
+  animation: pulse 2s infinite;
+}
+
+@media (max-width: 640px) {
+  .btn-magic {
+    width: 100%;
+    min-width: unset;
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+  .header-bottom {
+    gap: 1rem;
+  }
+}
+
+/* ===== БЕЙДЖИ ТЕХНОЛОГИЙ ===== */
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  background: #eef2f6;
+  color: #2d3748;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.tech-badge:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.tech-badge.html {
+  background: #e34f26;
+  color: #fff;
+}
+.tech-badge.css {
+  background: #264de4;
+  color: #fff;
+}
+.tech-badge.js {
+  background: #f7df1e;
+  color: #2d3748;
+}
+.tech-badge.github {
+  background: #333;
+  color: #fff;
+}
+
+.tech-icon {
+  font-size: 1.3rem;
+  width: 1.5rem;
+  text-align: center;
+}
+
+/* Тёмная тема */
+body.dark-theme .tech-badge {
+  background: #2d2d44;
+  color: #d0d0e8;
+  border-color: #4a4a6a;
+}
+body.dark-theme .tech-badge.html {
+  background: #e34f26;
+  color: #fff;
+}
+body.dark-theme .tech-badge.css {
+  background: #264de4;
+  color: #fff;
+}
+body.dark-theme .tech-badge.js {
+  background: #f7df1e;
+  color: #1a1a2e;
+}
+body.dark-theme .tech-badge.github {
+  background: #555;
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .tech-badge {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    border-radius: 30px;
+  }
+  .tech-icon {
+    font-size: 1rem;
+  }
+}
+
+.tech-badge {
+  margin: 0.4rem 0.6rem; /* вертикаль | горизонталь */
+}
+
+@media (max-width: 640px) {
+  .tech-list {
+    gap: 0.5rem;
+  }
+}

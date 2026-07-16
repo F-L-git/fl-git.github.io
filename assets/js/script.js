@@ -19,7 +19,12 @@ const translations = {
         aboutText1: 'Сайт создан для изучения возможностей бесплатного хостинга от <strong>GitHub</strong>.',
         aboutText2: 'Теперь сайт поддерживает <strong>интерактивность</strong> благодаря JavaScript 🌟',
         techTitle: '🧠 Технологии',
-        techList: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'GitHub Pages'],
+        techList: [
+            { name: 'HTML5', icon: '🌐', class: 'html' },
+            { name: 'CSS3', icon: '🎨', class: 'css' },
+            { name: 'JavaScript (ES6+)', icon: '⚡', class: 'js' },
+            { name: 'GitHub Pages', icon: '🐙', class: 'github' }
+        ],
         jsTitle: '🧩 JavaScript-версия',
         jsText: 'В этой версии сайта добавлены скрипты, которые делают страницу живой:',
         jsList: ['📅 Приветственное сообщение в зависимости от времени суток', '🎨 Кнопка для смены темы (светлая/тёмная)', '🔢 Таймер обратного отсчёта до следующего обновления'],
@@ -101,7 +106,12 @@ const translations = {
         aboutText1: 'This site was created to learn about free hosting from <strong>GitHub</strong>.',
         aboutText2: 'Now the site supports <strong>interactivity</strong> thanks to JavaScript 🌟',
         techTitle: '🧠 Technologies',
-        techList: ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'GitHub Pages'],
+        techList: [
+            { name: 'HTML5', icon: '🌐', class: 'html' },
+            { name: 'CSS3', icon: '🎨', class: 'css' },
+            { name: 'JavaScript (ES6+)', icon: '⚡', class: 'js' },
+            { name: 'GitHub Pages', icon: '🐙', class: 'github' }
+        ],
         jsTitle: '🧩 JavaScript Version',
         jsText: 'This version of the site includes scripts that make the page lively:',
         jsList: ['📅 Greeting message depending on time of day', '🎨 Theme toggle button (light/dark)', '🔢 Countdown timer to next update'],
@@ -340,9 +350,30 @@ function updateUI(lang) {
     document.querySelector('#about p:first-of-type').innerHTML = t.aboutText1;
     document.querySelector('#about p:last-of-type').innerHTML = t.aboutText2;
 
+    // 2. Заголовки и тексты секций
+    document.querySelector('#about h2').innerHTML = t.aboutTitle;
+    document.querySelector('#about p:first-of-type').innerHTML = t.aboutText1;
+    document.querySelector('#about p:last-of-type').innerHTML = t.aboutText2;
+
+    // --- Технологии (бейджи) ---
     document.querySelector('#tech h2').innerHTML = t.techTitle;
     const techUl = document.querySelector('#tech ul');
-    techUl.innerHTML = t.techList.map(item => `<li><code>${item}</code></li>`).join('');
+    techUl.innerHTML = t.techList.map(item => {
+        // Если item – строка (старый формат), превращаем в объект
+        if (typeof item === 'string') {
+            let techClass = 'default';
+            let icon = '🔧';
+            const lower = item.toLowerCase();
+            if (lower.includes('html')) { techClass = 'html'; icon = '🌐'; }
+            else if (lower.includes('css')) { techClass = 'css'; icon = '🎨'; }
+            else if (lower.includes('javascript') || lower.includes('js')) { techClass = 'js'; icon = '⚡'; }
+            else if (lower.includes('github')) { techClass = 'github'; icon = '🐙'; }
+            return `<li class="tech-badge ${techClass}"><span class="tech-icon">${icon}</span> ${item}</li>`;
+        } else {
+            // Если уже объект (новый формат)
+            return `<li class="tech-badge ${item.class}"><span class="tech-icon">${item.icon}</span> ${item.name}</li>`;
+        }
+    }).join('');
 
     document.querySelector('#js-version h2').innerHTML = t.jsTitle;
     const jsP = document.querySelector('#js-version p:first-of-type');
