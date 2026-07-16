@@ -1012,3 +1012,72 @@ body.dark-theme .tech-badge.github {
     gap: 0.5rem;
   }
 }
+
+/* ===== ГРАДИЕНТНЫЕ СЕКЦИИ ===== */
+.section {
+  background: linear-gradient(145deg, #ffffff, #f0f4f8) !important;
+  border-left: 4px solid #667eea;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.15);
+}
+
+/* Тёмная тема */
+body.dark-theme .section {
+  background: linear-gradient(145deg, #2a2a42, #1a1a2e) !important;
+  border-left-color: #667eea;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .section:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== ГРАДИЕНТНЫЕ БЕЙДЖИ ТЕХНОЛОГИЙ ===== */
+.tech-badge {
+  transition: all 0.3s ease;
+}
+
+.tech-badge.html {
+  background: linear-gradient(135deg, #e44d26, #f16529);
+  color: #fff;
+}
+.tech-badge.css {
+  background: linear-gradient(135deg, #264de4, #2965f1);
+  color: #fff;
+}
+.tech-badge.js {
+  background: linear-gradient(135deg, #f7df1e, #f0c000);
+  color: #2d3748;
+}
+.tech-badge.github {
+  background: linear-gradient(135deg, #333, #6e6e6e);
+  color: #fff;
+}
+
+.tech-badge:hover {
+  transform: translateY(-3px) scale(1.02);
+  filter: brightness(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Тёмная тема – слегка приглушаем */
+body.dark-theme .tech-badge.html {
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+}
+body.dark-theme .tech-badge.css {
+  background: linear-gradient(135deg, #1a3a8a, #2161c4);
+}
+body.dark-theme .tech-badge.js {
+  background: linear-gradient(135deg, #d4a900, #f0c000);
+  color: #1a1a2e;
+}
+body.dark-theme .tech-badge.github {
+  background: linear-gradient(135deg, #222, #555);
+}
