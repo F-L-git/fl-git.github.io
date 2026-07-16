@@ -508,7 +508,7 @@ function updateVisitCounter() {
 updateVisitCounter();
 
 // ========================
-// 4. АККОРДЕОН (раскрывающиеся разделы)
+// 4. раскрывающиеся разделы
 // ========================
 document.querySelectorAll('.section h2').forEach((header) => {
     header.style.cursor = 'pointer';
@@ -538,7 +538,7 @@ document.querySelectorAll('.section h2').forEach((header) => {
 });
 
 // ========================
-// АНИМАЦИЯ ПРИ ПОЯВЛЕНИИ (Intersection Observer) с задержкой
+// 6. АНИМАЦИЯ ПРИ ПОЯВЛЕНИИ (Intersection Observer) с задержкой
 // ========================
 if ('IntersectionObserver' in window) {
     const sections = document.querySelectorAll('.section');
@@ -565,7 +565,7 @@ if ('IntersectionObserver' in window) {
 }
 
 // ========================
-// 6. ТАЙМЕР ОБРАТНОГО ОТСЧЁТА
+// 7. ТАЙМЕР ОБРАТНОГО ОТСЧЁТА
 // ========================
 function startCountdown(targetDate) {
     const daysEl = document.getElementById('days');
@@ -620,7 +620,7 @@ const nextUpdate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
 startCountdown(nextUpdate.getTime());
 
 // ========================
-// 7. ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ (TOAST)
+// 8. ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ (TOAST)
 // ========================
 function showToast(message) {
     let container = document.getElementById('toast-container');
@@ -640,7 +640,7 @@ function showToast(message) {
 }
 
 // ========================
-// 8. ВИДЖЕТ ПОГОДЫ (Open-Meteo)
+// 9. ВИДЖЕТ ПОГОДЫ (Open-Meteo)
 // ========================
 async function fetchWeather() {
     const lat = 55.7558;
@@ -709,21 +709,8 @@ function getWeatherEmoji(code) {
     return weatherMap[code] || { emoji: '🌡️', description: 'Неизвестно' };
 } */
 
-
 // ========================
-// 10. ДИНАМИЧЕСКИЙ ЗАГОЛОВОК ВКЛАДКИ
-// ========================
-let originalTitle = document.title;
-document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        document.title = '👀 Вернись!';
-    } else {
-        document.title = originalTitle;
-    }
-});
-
-// ========================
-// 11. ОБРАБОТЧИКИ ПОСЛЕ ЗАГРУЗКИ DOM
+// 10. ОБРАБОТЧИКИ ПОСЛЕ ЗАГРУЗКИ DOM
 // ========================
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -756,7 +743,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ========================
-// ФУНКЦИЯ ДЛЯ ОБНОВЛЕНИЯ КАРТЫ
+// 11. ФУНКЦИЯ ДЛЯ ОБНОВЛЕНИЯ КАРТЫ
 // ========================
 function showLocationOnMap(lat, lon, popupText) {
     const mapContainer = document.getElementById('map');
@@ -790,7 +777,7 @@ function showLocationOnMap(lat, lon, popupText) {
 }
 
 // ========================
-// СНЕГ (Canvas)
+// 12. СНЕГ (Canvas)
 // ========================
 (function initSnow() {
     const canvas = document.getElementById('snow-canvas');
@@ -874,7 +861,7 @@ function showLocationOnMap(lat, lon, popupText) {
 })();
 
 // ========================
-// КАСТОМНЫЙ КУРСОР + СЛЕД
+// 13. КАСТОМНЫЙ КУРСОР + СЛЕД
 // ========================
 (function initCustomCursor() {
     const dot = document.getElementById('cursor-dot');
@@ -958,7 +945,7 @@ document.querySelectorAll('.btn').forEach(btn => {
 });
 
 // ========================
-// ИНТЕРАКТИВНЫЙ ГРАДИЕНТ (реакция на мышь)
+// 14. ИНТЕРАКТИВНЫЙ ГРАДИЕНТ (реакция на мышь)
 // ========================
 (function initInteractiveGradient() {
     let targetX = 50, targetY = 50; // целевые значения
@@ -991,4 +978,3 @@ setInterval(() => {
     autoX = Math.sin(Date.now() / 10000) * 5; // колебания ±5%
     autoY = Math.cos(Date.now() / 15000) * 5;
 }, 100);
-// В smoothGradient добавьте к targetX/Y autoX/autoY
