@@ -54,7 +54,7 @@ const translations = {
         jekyllText: 'Выберите тему в настройках <strong>Pages</strong> (кнопка <strong>Choose a theme</strong>). GitHub сгенерирует сайт на основе <code>README.md</code>.',
         footerCopyright: '© 2026, fl-git',
         footerVisits: '👀 Просмотров:',
-        footerRepo: '📂 Репозиторий',
+        footerRepoLabel: 'GitHub репозиторий',
         // Для карты
         mapPopup: '📍 Москва',
         // Для игры (если добавите)
@@ -141,7 +141,7 @@ const translations = {
         jekyllText: 'Choose a theme in <strong>Pages</strong> settings (button <strong>Choose a theme</strong>). GitHub will generate a site based on <code>README.md</code>.',
         footerCopyright: '© 2026, fl-git',
         footerVisits: '👀 Visits:',
-        footerRepo: '📂 Repository',
+        footerRepoLabel: 'GitHub repository',
         mapPopup: '📍 Moscow',
         guessTitle: '🎯 Guess the Number',
         guessText: 'I\'ve chosen a number from 1 to 100. Try to guess!',
@@ -343,6 +343,7 @@ function updateUI(lang) {
     if (!t) return;
 
     // 1. Приветствие – обновляем динамически, потому что зависит от времени
+    updateGreeting();
 
 
     // 2. Заголовки и тексты секций
@@ -409,7 +410,7 @@ function updateUI(lang) {
     if (footerVisitsText) footerVisitsText.textContent = t.footerVisits;
 
     const repoLink = document.getElementById('footer-repo-link');
-    if (repoLink) repoLink.innerHTML = t.footerRepo;
+    if (repoLink) repoLink.setAttribute('aria-label', t.footerRepoLabel);
 
     // После обновления футера
     updateVisitCounter();
@@ -434,8 +435,6 @@ function updateUI(lang) {
     if (mapTitle) mapTitle.textContent = t.mapTitle;
     updateMapPopup(lang);
 
-    // 8. Обновляем приветствие (вызовем updateGreeting, который теперь будет использовать язык)
-    updateGreeting();
 }
 
 // ========================
