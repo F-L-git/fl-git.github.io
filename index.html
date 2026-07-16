@@ -105,14 +105,16 @@
       <section class="content">
         <div class="section" id="about">
           <h2>🛠️ О проекте</h2>
-          <p>
-            Сайт создан для изучения возможностей бесплатного хостинга от
-            <strong>GitHub</strong>.
-          </p>
-          <p>
-            Теперь сайт поддерживает <strong>интерактивность</strong> благодаря
-            JavaScript 🌟
-          </p>
+          <div class="section-content">
+            <p>
+              Сайт создан для изучения возможностей бесплатного хостинга от
+              <strong>GitHub</strong>.
+            </p>
+            <p>
+              Теперь сайт поддерживает
+              <strong>интерактивность</strong> благодаря JavaScript 🌟
+            </p>
+          </div>
         </div>
 
         <!-- Карта -->
@@ -123,108 +125,126 @@
 
         <div class="section" id="tech">
           <h2>🧠 Технологии</h2>
-          <ul class="tech-list">
-            <li class="tech-badge html">
-              <i class="fab fa-html5 tech-icon"></i> HTML5
-            </li>
-            <li class="tech-badge css">
-              <i class="fab fa-css3-alt tech-icon"></i> CSS3
-            </li>
-            <li class="tech-badge js">
-              <i class="fab fa-js tech-icon"></i> JavaScript (ES6+)
-            </li>
-            <li class="tech-badge github">
-              <i class="fab fa-github tech-icon"></i> GitHub Pages
-            </li>
-          </ul>
+          <div class="section-content">
+            <ul class="tech-list">
+              <li class="tech-badge html">
+                <i class="fab fa-html5 tech-icon"></i> HTML5
+              </li>
+              <li class="tech-badge css">
+                <i class="fab fa-css3-alt tech-icon"></i> CSS3
+              </li>
+              <li class="tech-badge js">
+                <i class="fab fa-js tech-icon"></i> JavaScript (ES6+)
+              </li>
+              <li class="tech-badge github">
+                <i class="fab fa-github tech-icon"></i> GitHub Pages
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div class="section" id="js-version">
           <h2>🧩 JavaScript-версия</h2>
-          <p>
-            В этой версии сайта добавлены скрипты, которые делают страницу
-            живой:
-          </p>
-          <ul>
-            <li>📅 Приветственное сообщение в зависимости от времени суток</li>
-            <li>🎨 Кнопка для смены темы (светлая/тёмная)</li>
-            <li>🔢 Таймер обратного отсчёта до следующего обновления</li>
-          </ul>
-          <p>
-            <strong>📄 Пример кода (файл <code>script.js</code>):</strong>
-          </p>
-          <pre><code class="language-javascript">// Приветствие
-window.addEventListener('DOMContentLoaded', () => {
-    console.log('Добро пожаловать на мой сайт!');
-    const title = document.querySelector('h1');
-    title.style.transition = 'color 0.5s';
-});
+          <div class="section-content">
+            <p>
+              В этой версии сайта добавлены скрипты, которые делают страницу
+              живой:
+            </p>
+            <ul>
+              <li>
+                📅 Приветственное сообщение в зависимости от времени суток
+              </li>
+              <li>🎨 Кнопка для смены темы (светлая/тёмная)</li>
+              <li>🔢 Таймер обратного отсчёта до следующего обновления</li>
+            </ul>
+            <p>
+              <strong>📄 Пример кода (файл <code>script.js</code>):</strong>
+            </p>
+            <pre><code class="language-javascript">// Приветствие
+  window.addEventListener('DOMContentLoaded', () => {
+      console.log('Добро пожаловать на мой сайт!');
+      const title = document.querySelector('h1');
+      title.style.transition = 'color 0.5s';
+  });
 
-// Переключение темы
-const themeBtn = document.getElementById('theme-toggle');
-themeBtn?.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-});</code></pre>
+  // Переключение темы
+  const themeBtn = document.getElementById('theme-toggle');
+  themeBtn?.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+  });</code></pre>
+          </div>
         </div>
 
         <div class="section" id="setup">
           <h2>🚀 Настройка GitHub Pages</h2>
-          <ol>
-            <li>Перейдите в свой репозиторий на <strong>GitHub</strong>.</li>
-            <li>Нажмите <strong>Settings</strong> (вкладка в верхнем меню).</li>
-            <li>В левом меню выберите <strong>Pages</strong>.</li>
-            <li>
-              В разделе <strong>Branch</strong> выберите ветку (обычно
-              <code>main</code> или <code>master</code>). Оставьте папку
-              <code>/(root)</code>.
-            </li>
-            <li>Нажмите <strong>Save</strong>.</li>
-            <li>Через пару минут сайт станет доступен по ссылке.</li>
-          </ol>
-          <p>
-            <strong>Важно:</strong> Если репозиторий не
-            <code>username.github.io</code>, сайт будет по адресу
-            <code>username.github.io/имя-репозитория</code>.
-          </p>
+          <div class="section-content">
+            <ol>
+              <li>Перейдите в свой репозиторий на <strong>GitHub</strong>.</li>
+              <li>
+                Нажмите <strong>Settings</strong> (вкладка в верхнем меню).
+              </li>
+              <li>В левом меню выберите <strong>Pages</strong>.</li>
+              <li>
+                В разделе <strong>Branch</strong> выберите ветку (обычно
+                <code>main</code> или <code>master</code>). Оставьте папку
+                <code>/(root)</code>.
+              </li>
+              <li>Нажмите <strong>Save</strong>.</li>
+              <li>Через пару минут сайт станет доступен по ссылке.</li>
+            </ol>
+            <p>
+              <strong>Важно:</strong> Если репозиторий не
+              <code>username.github.io</code>, сайт будет по адресу
+              <code>username.github.io/имя-репозитория</code>.
+            </p>
+          </div>
         </div>
 
         <div class="section" id="tips">
           <h2>🧑‍💻 Дополнительные советы</h2>
-          <ul>
-            <li>
-              Используйте
-              <a href="https://getbootstrap.com" target="_blank">Bootstrap</a>
-              или
-              <a href="https://tailwindcss.com" target="_blank">Tailwind CSS</a
-              >.
-            </li>
-            <li>
-              Добавьте иконки с
-              <a href="https://fontawesome.com" target="_blank">Font Awesome</a
-              >.
-            </li>
-            <li>Сделайте адаптивный дизайн.</li>
-          </ul>
+          <div class="section-content">
+            <ul>
+              <li>
+                Используйте
+                <a href="https://getbootstrap.com" target="_blank">Bootstrap</a>
+                или
+                <a href="https://tailwindcss.com" target="_blank"
+                  >Tailwind CSS</a
+                >.
+              </li>
+              <li>
+                Добавьте иконки с
+                <a href="https://fontawesome.com" target="_blank"
+                  >Font Awesome</a
+                >.
+              </li>
+              <li>Сделайте адаптивный дизайн.</li>
+            </ul>
+          </div>
         </div>
 
         <div class="section" id="trouble">
           <h2>❓ Что делать, если сайт не открывается?</h2>
-          <ul>
-            <li>Проверьте ветку в настройках <strong>Pages</strong>.</li>
-            <li>
-              Посмотрите вкладку <strong>Actions</strong> — там могут быть
-              ошибки.
-            </li>
-          </ul>
+          <div class="section-content">
+            <ul>
+              <li>Проверьте ветку в настройках <strong>Pages</strong>.</li>
+              <li>
+                Посмотрите вкладку <strong>Actions</strong> — там могут быть
+                ошибки.
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div class="section" id="jekyll">
           <h2>🎨 Альтернатива: Jekyll</h2>
-          <p>
-            Выберите тему в настройках <strong>Pages</strong> (кнопка
-            <strong>Choose a theme</strong>). GitHub сгенерирует сайт на основе
-            <code>README.md</code>.
-          </p>
+          <div class="section-content">
+            <p>
+              Выберите тему в настройках <strong>Pages</strong> (кнопка
+              <strong>Choose a theme</strong>). GitHub сгенерирует сайт на
+              основе <code>README.md</code>.
+            </p>
+          </div>
         </div>
       </section>
 

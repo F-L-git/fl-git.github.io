@@ -1081,3 +1081,83 @@ body.dark-theme .tech-badge.js {
 body.dark-theme .tech-badge.github {
   background: linear-gradient(135deg, #222, #555);
 }
+
+body {
+  background-attachment: fixed;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+body.dark-theme ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 640px) {
+  .tech-list {
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  .tech-badge {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  .container {
+    padding: 1rem;
+  }
+}
+
+/* ===== ПЛАВНЫЙ АККОРДЕОН ===== */
+.section-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 0.5rem;
+  transition:
+    max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s ease,
+    padding 0.3s ease;
+}
+
+.section-content.open {
+  max-height: 2000px; /* достаточно большое значение, чтобы вместить весь контент */
+  opacity: 1;
+  padding: 1rem 0.5rem 0.5rem;
+}
+
+/* Секция about всегда открыта */
+#about .section-content {
+  max-height: 2000px;
+  opacity: 1;
+  padding: 1rem 0.5rem 0.5rem;
+}
+
+.section h2 {
+  transition: color 0.2s;
+}
+.section h2:hover {
+  color: #667eea;
+}
+body.dark-theme .section h2:hover {
+  color: #89b4fa;
+}
+
+@media (max-width: 640px) {
+  .section-content {
+    transition:
+      max-height 0.3s ease,
+      opacity 0.2s ease;
+  }
+}

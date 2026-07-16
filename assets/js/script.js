@@ -542,37 +542,65 @@ function updateVisitCounter() {
 updateVisitCounter();
 
 // ========================
-// 4. раскрывающиеся разделы
+// 4. ПЛАВНЫЙ АККОРДЕОН (раскрывающиеся разделы)
 // ========================
-document.querySelectorAll('.section h2').forEach((header) => {
-    header.style.cursor = 'pointer';
-    header.style.userSelect = 'none';
-    header.style.display = 'flex';
-    header.style.alignItems = 'center';
-    header.style.justifyContent = 'space-between';
+document.querySelectorAll('.section').forEach((section) => {
+    const header = section.querySelector('h2');
+    if (!header) return;
+
+    // Находим контейнер с содержимым
+    let content = section.querySelector('.section-content');
+    if (!content) {
+        // Если обёртки нет (как в about), создаём её
+        const children = section.children;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'section-content';
+        // Переносим все элементы после заголовка в обёртку
+        const elements = [];
+        for (let i = 1; i < children.length; i++) {
+            elements.push(children[i]);
+        }
+        elements.forEach(el => wrapper.appendChild(el));
+        section.appendChild(wrapper);
+        content = wrapper;
+    }
+
+    // Создаём стрелку
     const icon = document.createElement('span');
     icon.textContent = ' ▾';
     icon.style.fontSize = '1.2rem';
+    icon.style.marginLeft = 'auto';
+    header.style.display = 'flex';
+    header.style.alignItems = 'center';
+    header.style.justifyContent = 'space-between';
+    header.style.cursor = 'pointer';
+    header.style.userSelect = 'none';
     header.appendChild(icon);
 
-    const section = header.parentElement;
-    const content = section.querySelector('p, ul, ol');
-    if (!content) return;
-
+    // Если секция не about – закрыта
     if (section.id !== 'about') {
-        content.style.display = 'none';
+        content.classList.remove('open');
         icon.textContent = ' ▸';
+    } else {
+        content.classList.add('open');
+        icon.textContent = ' ▾';
     }
 
+    // Клик по заголовку
     header.addEventListener('click', () => {
-        const isOpen = content.style.display !== 'none';
-        content.style.display = isOpen ? 'none' : 'block';
-        icon.textContent = isOpen ? ' ▸' : ' ▾';
+        const isOpen = content.classList.contains('open');
+        if (isOpen) {
+            content.classList.remove('open');
+            icon.textContent = ' ▸';
+        } else {
+            content.classList.add('open');
+            icon.textContent = ' ▾';
+        }
     });
 });
 
 // ========================
-// 6. АНИМАЦИЯ ПРИ ПОЯВЛЕНИИ (Intersection Observer) с задержкой
+// 5. АНИМАЦИЯ ПРИ ПОЯВЛЕНИИ (Intersection Observer) с задержкой
 // ========================
 if ('IntersectionObserver' in window) {
     const sections = document.querySelectorAll('.section');
@@ -1012,3 +1040,8 @@ setInterval(() => {
     autoX = Math.sin(Date.now() / 10000) * 5; // колебания ±5%
     autoY = Math.cos(Date.now() / 15000) * 5;
 }, 100);
+
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    document.querySelector('.container').style.transform = `translateY(${scrollY * 0.02}px)`;
+});
